@@ -20,20 +20,25 @@
         var url = options.url || options;
 
         // Create an iframe for drawing
-        var iframe = document.createElement('iframe');
+        var iframe = document.createElement('iframe'),
+            body = document.body;
 
         // Expand it out to 100%
         // TODO: Expand even bigger?
         iframe.height = 700;
         iframe.width = 700;
 
+        // Append the iframe to the DOM
+        body.appendChild(iframe);
+
         // Load the url within the iframe
-        iframe.url = url;
-console.log('zzzzzzzzz');
+        iframe.setAttribute('src', url);
+
         // Convert the item to an image
-        // TODO: We might need to append to the DOM, in which case, perform cleanup
         iframe2image(iframe, function (err, img) {
-console.log('wwwwwwww', err, img);
+          // Remove the iframe
+          body.removeChild(iframe);
+
           // Callback with result
           return cb.apply(this, arguments);
         });
