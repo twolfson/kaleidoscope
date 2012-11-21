@@ -16,7 +16,22 @@
     <script src="snapshot.withDeps.js"></script>
     <canvas id="canvas"></canvas>
     <script>
+      // TODO: Use CSS flex-box system or similar for SUPER easy gridding (might just grid the canvas' themself)
+      // TODO The gridding system could be a repo too >_<
       (function () {
+
+      function Kaleidoscope(rows, cols) {
+        this.rows = rows;
+        this.cols = cols;
+      }
+      Kaleidoscope.prototype = {
+        'set': function (location, options) {
+          // Create an image
+
+          // Draw it at the location
+
+        }
+      };
 
       // Set up the canvas dimensions
       var canvas = document.getElementById('canvas'),
@@ -33,6 +48,15 @@
 
         // Otherwise, add the image to the canvas
         context.drawImage(img, 0, 0, innerWidth / 3, innerHeight / 3);
+      });
+
+      // Get the image
+      snapshot('upper.center.html', function (err, img) {
+        // If there is an error, log it
+        if (err) { return console.error(err); }
+
+        // Otherwise, add the image to the canvas
+        context.drawImage(img, innerHeight / 3, 0, innerWidth / 3, innerHeight / 3);
       });
 
       }());
