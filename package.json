@@ -28,11 +28,20 @@
   "scripts": {
     "test": "grunt test"
   },
+  "dependencies": {
+    "snapshot.js": "~0.1.0"
+  },
   "devDependencies": {
     "grunt": "~0.3.17"
   },
-  "keywords": [],
-  "dependencies": {
-    "iframe2image": "~0.1.0"
-  }
+  "keywords": [
+    "multiple",
+    "websites",
+    "page",
+    "webpage",
+    "view",
+    "concurrent",
+    "screenshot",
+    "screen"
+  ]
 }

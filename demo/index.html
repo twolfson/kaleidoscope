@@ -12,38 +12,8 @@
   </head>
 
   <body>
-    <script src="iframe2image.withdomvas.js"></script>
+    <script src="snapshot.withDeps.js"></script>
     <canvas id="canvas"></canvas>
-    <script>
-      function createSnapshot(options, cb) {
-        // Fallback options to a flat URL
-        var url = options.url || options;
-
-        // Create an iframe for drawing
-        var iframe = document.createElement('iframe'),
-            body = document.body;
-
-        // Expand it out to 100%
-        // TODO: Expand even bigger?
-        iframe.height = 700;
-        iframe.width = 700;
-
-        // Append the iframe to the DOM
-        body.appendChild(iframe);
-
-        // Load the url within the iframe
-        iframe.setAttribute('src', url);
-
-        // Convert the item to an image
-        iframe2image(iframe, function (err, img) {
-          // Remove the iframe
-          body.removeChild(iframe);
-
-          // Callback with result
-          return cb.apply(this, arguments);
-        });
-      }
-    </script>
     <script>
       // Set up the canvas dimensions
       var canvas = document.getElementById('canvas'),
@@ -52,7 +22,7 @@
       canvas.height = 600;
 
       // Get the image
-      createSnapshot('inner.html', function (err, img) {
+      snapshot('inner.html', function (err, img) {
         // If there is an error, log it
         if (err) { return console.error(err); }
 
