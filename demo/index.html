@@ -6,6 +6,7 @@
     <title>Custom Plunker</title>
     <style>
       body {
+        margin: 0;
         background: #BADA55;
       }
     </style>
@@ -15,20 +16,26 @@
     <script src="snapshot.withDeps.js"></script>
     <canvas id="canvas"></canvas>
     <script>
+      (function () {
+
       // Set up the canvas dimensions
       var canvas = document.getElementById('canvas'),
-          context = canvas.getContext('2d');
-      canvas.width = 500;
-      canvas.height = 600;
+          context = canvas.getContext('2d'),
+          innerWidth = window.innerWidth,
+          innerHeight = window.innerHeight;
+      canvas.width = window.innerWidth - 10;
+      canvas.height = window.innerHeight - 10;
 
       // Get the image
-      snapshot('inner.html', function (err, img) {
+      snapshot('upper.left.html', function (err, img) {
         // If there is an error, log it
         if (err) { return console.error(err); }
 
         // Otherwise, add the image to the canvas
-        context.drawImage(img, 0, 0);
+        context.drawImage(img, 0, 0, innerWidth / 3, innerHeight / 3);
       });
+
+      }());
     </script>
 
     <script src="watcher.js"></script>
