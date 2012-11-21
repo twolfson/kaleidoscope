@@ -31,5 +31,8 @@
   "devDependencies": {
     "grunt": "~0.3.17"
   },
-  "keywords": []
+  "keywords": [],
+  "dependencies": {
+    "iframe2image": "~0.1.0"
+  }
 }
