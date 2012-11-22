@@ -57,8 +57,9 @@
          * @param {Number} position.column Column to draw out
          * @param {Mixed} options Options to pass through to snapshot
          */
-        'draw': function (location, options) {
+        'draw': function (position, options) {
           // Create an image
+          var that = this;
           snapshot(options, function (err, img) {
             // If there is an error, log it
             if (err) { return console.error(err); }
@@ -66,8 +67,9 @@
             // Otherwise, draw it at the location
             var row = position.row,
                 col = position.column,
-                width =this.unitWidth,
-                height =this.unitHeight;
+                context = that.context,
+                width = that.unitWidth,
+                height = that.unitHeight;
             context.drawImage(img, width * col, height * row, width, height);
           });
         }
@@ -75,42 +77,18 @@
 
       // Set up the canvas dimensions
       var canvas = document.getElementById('canvas'),
-          context = canvas.getContext('2d'),
           innerWidth = window.innerWidth,
           innerHeight = window.innerHeight;
       canvas.width = window.innerWidth - 10;
       canvas.height = window.innerHeight - 10;
 
-      // // Create a new kaleidoscope
-      // var kal = new Kaleidoscope
+      // Create a new kaleidoscope
+      var kal = new Kaleidoscope({'rows': 3, 'columns': 3, 'canvas': canvas});
 
-      // Get the image
-      snapshot('upper.left.html', function (err, img) {
-        // If there is an error, log it
-        if (err) { return console.error(err); }
-
-        // Otherwise, add the image to the canvas
-        context.drawImage(img, 0, 0, innerWidth / 3, innerHeight / 3);
-      });
-
-      // Get the image
-      snapshot('upper.center.html', function (err, img) {
-        // If there is an error, log it
-        if (err) { return console.error(err); }
-
-        // Otherwise, add the image to the canvas
-        context.drawImage(img, innerWidth / 3, 0, innerWidth / 3, innerHeight / 3);
-      });
-
-      // Get the image
-      snapshot('upper.left.html', function (err, img) {
-        // If there is an error, log it
-        if (err) { return console.error(err); }
-
-        // Otherwise, add the image to the canvas
-        context.drawImage(img, 2 * innerWidth / 3, 0, innerWidth / 3, innerHeight / 3);
-      });
-
+      // Draw out the upper row
+      kal.draw({'row': 0, 'column': 0}, 'upper.left.html');
+      kal.draw({'row': 0, 'column': 1}, 'upper.center.html');
+      kal.draw({'row': 0, 'column': 2}, 'upper.left.html');
 
       }());
     </script>
