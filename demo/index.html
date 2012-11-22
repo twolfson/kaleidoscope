@@ -20,16 +20,56 @@
       // TODO The gridding system could be a repo too >_<
       (function () {
 
-      function Kaleidoscope(rows, cols) {
+      /**
+       * @param {Object} params Parameters to generate the kaleidoscope with
+       * @param {Number} params.rows
+       * @param {Number} params.columns
+       * @param {Number} params.canvas Canvas to draw on
+       */
+      function Kaleidoscope(params) {
+        // Localize params
+        var canvas = params.canvas,
+            rows = params.rows,
+            cols = params.columns;
+
+        // Save rows, cols, and canvas for later use
         this.rows = rows;
-        this.cols = cols;
+        this.columns = cols;
+        this.canvas = canvas;
+        this.context = canvas.getContext('2d');
+
+        // Get the dimensions of the canvas
+        var canvasDims = getComputedStyle(canvas),
+            width = canvas.width,
+            height = canvas.height;
+
+        // Calculate and save the grid unit
+        this.unitWidth = width / cols;
+        this.unitHeight = height / rows;
+        this.width = width;
+        this.height = height;
       }
       Kaleidoscope.prototype = {
-        'set': function (location, options) {
+        // TODO: The grid should dictate the dimensions of the image we are taking a snapshot of?
+        /**
+         * @param {Object} position Container object for row and column
+         * @param {Number} position.row Row to draw out
+         * @param {Number} position.column Column to draw out
+         * @param {Mixed} options Options to pass through to snapshot
+         */
+        'draw': function (location, options) {
           // Create an image
+          snapshot(options, function (err, img) {
+            // If there is an error, log it
+            if (err) { return console.error(err); }
 
-          // Draw it at the location
-
+            // Otherwise, draw it at the location
+            var row = position.row,
+                col = position.column,
+                width =this.unitWidth,
+                height =this.unitHeight;
+            context.drawImage(img, width * col, height * row, width, height);
+          });
         }
       };
 
@@ -40,6 +80,9 @@
           innerHeight = window.innerHeight;
       canvas.width = window.innerWidth - 10;
       canvas.height = window.innerHeight - 10;
+
+      // // Create a new kaleidoscope
+      // var kal = new Kaleidoscope
 
       // Get the image
       snapshot('upper.left.html', function (err, img) {
