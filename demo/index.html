@@ -56,8 +56,18 @@
         if (err) { return console.error(err); }
 
         // Otherwise, add the image to the canvas
-        context.drawImage(img, innerHeight / 3, 0, innerWidth / 3, innerHeight / 3);
+        context.drawImage(img, innerWidth / 3, 0, innerWidth / 3, innerHeight / 3);
       });
+
+      // Get the image
+      snapshot('upper.left.html', function (err, img) {
+        // If there is an error, log it
+        if (err) { return console.error(err); }
+
+        // Otherwise, add the image to the canvas
+        context.drawImage(img, 2 * innerWidth / 3, 0, innerWidth / 3, innerHeight / 3);
+      });
+
 
       }());
     </script>
