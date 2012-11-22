@@ -83,12 +83,17 @@
       canvas.height = window.innerHeight - 10;
 
       // Create a new kaleidoscope
-      var kal = new Kaleidoscope({'rows': 1, 'columns': 3, 'canvas': canvas});
+      var kal = new Kaleidoscope({'rows': 2, 'columns': 3, 'canvas': canvas});
 
       // Draw out the upper row
       kal.draw({'row': 0, 'column': 0}, 'upper.left.html');
       kal.draw({'row': 0, 'column': 1}, 'upper.center.html');
       kal.draw({'row': 0, 'column': 2}, 'upper.left.html');
+
+      // and lower row
+      kal.draw({'row': 1, 'column': 0}, 'upper.center.html');
+      kal.draw({'row': 1, 'column': 1}, 'upper.left.html');
+      kal.draw({'row': 1, 'column': 2}, 'upper.center.html');
 
       }());
     </script>
