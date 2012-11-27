@@ -108,15 +108,14 @@
 
         // TODO: Resolve absolute vs relative URLs
         // TODO: That should probably be done by kaleidoscope (OR EVEN BETTER ANOTHER MODULE -- I think I semi-dealt with this in Resource-Collector but I am sure node-path would do a much better job)
-        url = '//localhost:9000/localhost:3000/demo/' + url;
+        url = 'localhost:3000/demo/' + url;
+        url = screenshotUrl + '/' + url;
 
         // Create an image
         var img = new Image();
         img.src = url;
 
         // TODO: Deal with viewport sizing and whatnot
-
-        console.log('ggggggg', url, img);
 
         // When it completes loading, callback with it
         img.onload = function () {
