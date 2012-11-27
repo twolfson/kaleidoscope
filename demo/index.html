@@ -20,11 +20,14 @@
       // TODO The gridding system could be a repo too >_<
       (function () {
 
+      var engines = {};
+
       /**
        * @param {Object} params Parameters to generate the kaleidoscope with
        * @param {Number} params.rows
        * @param {Number} params.columns
        * @param {Number} params.canvas Canvas to draw on
+       * @param {String} [params.engine="snapshot"] Engine to capture screenshot via (e.g. snapshot, screenshot)
        */
       function Kaleidoscope(params) {
         // Localize params
@@ -74,6 +77,41 @@
           });
         }
       };
+
+      // Set up helpers for loading in engines
+      function addEngine(name, fn) {
+        engines[name] = fn;
+      }
+      Kaleidoscope.addEngine = addEngine;
+
+      // Add in snapshot and screenshot
+      // REFERENCE: options = String(url)|object(containing url, width, height)
+      addEngine('snapshot', snapshot);
+      addEngine('screenshot', function (options, cb) {
+        // If options is a string
+        var screenshotUrl = 'http://localhost:9000',
+            url = options;
+
+        // If options is an object, extract url from it
+        if (typeof options === 'object') {
+          url = options.url;
+        }
+
+        // TODO: Resolve absolute vs relative URLs
+        // TODO: That should probably be done by kaleidoscope (OR EVEN BETTER ANOTHER MODULE -- I think I semi-dealt with this in Resource-Collector but I am sure node-path would do a much better job)
+
+        // Create an image
+        var img = new Image();
+        img.src = url;
+
+        // When it completes loading, callback with it
+        img.onload = function () {
+          cb(img);
+        };
+      });
+
+      // Expose Kaleidoscope to the window scope
+      window.Kaleidoscope = Kaleidoscope;
 
       // Set up the canvas dimensions
       var canvas = document.getElementById('canvas'),
