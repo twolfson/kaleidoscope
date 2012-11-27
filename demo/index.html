@@ -96,7 +96,7 @@
       // Add in snapshot and screenshot
       // REFERENCE: options = String(url)|object(containing url, width, height)
       addEngine('snapshot', snapshot);
-      addEngine('screenshot', function (options, cb) {
+      addEngine('remote-server', function (options, cb) {
         // If options is a string
         var screenshotUrl = 'http://localhost:9000',
             url = options;
@@ -108,6 +108,7 @@
 
         // TODO: Resolve absolute vs relative URLs
         // TODO: That should probably be done by kaleidoscope (OR EVEN BETTER ANOTHER MODULE -- I think I semi-dealt with this in Resource-Collector but I am sure node-path would do a much better job)
+        url = '//localhost:9000/localhost:3000/demo/' + url;
 
         // Create an image
         var img = new Image();
@@ -115,10 +116,17 @@
 
         // TODO: Deal with viewport sizing and whatnot
 
+        console.log('ggggggg', url, img);
+
         // When it completes loading, callback with it
         img.onload = function () {
-          cb(img);
+          cb(null, img);
         };
+
+        // If there is an error, callback with it
+        img.onerror = function (err) {
+          cb(err);
+        }
       });
 
       // Expose Kaleidoscope to the window scope
@@ -132,7 +140,7 @@
       canvas.height = window.innerHeight - 10;
 
       // Create a new kaleidoscope
-      var kal = new Kaleidoscope({'rows': 2, 'columns': 3, 'canvas': canvas});
+      var kal = new Kaleidoscope({'rows': 2, 'columns': 3, 'canvas': canvas, 'engine': 'remote-server'});
 
       // Draw out the upper row
       kal.draw({'row': 0, 'column': 0}, 'upper.left.html');
