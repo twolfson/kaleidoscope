@@ -96,7 +96,7 @@
       // Add in snapshot and screenshot
       // REFERENCE: options = String(url)|object(containing url, width, height)
       addEngine('snapshot', snapshot);
-      addEngine('remote-server', function (options, cb) {
+      addEngine('server', function (options, cb) {
         // If options is a string
         var screenshotUrl = 'http://localhost:9000',
             url = options;
@@ -139,7 +139,7 @@
       canvas.height = window.innerHeight - 10;
 
       // Create a new kaleidoscope
-      var kal = new Kaleidoscope({'rows': 2, 'columns': 3, 'canvas': canvas, 'engine': 'remote-server'});
+      var kal = new Kaleidoscope({'rows': 2, 'columns': 3, 'canvas': canvas, 'engine': 'server'});
 
       // Draw out the upper row
       kal.draw({'row': 0, 'column': 0}, 'upper.left.html');
