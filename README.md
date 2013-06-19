@@ -1,4 +1,4 @@
-# kaleidoscope
+# kaleidoscope [![Donate on Gittip](http://badgr.co/gittip/twolfson.png)](https://www.gittip.com/twolfson/)
 
 View multiple pages at the same time
 
